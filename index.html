@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Cashbook</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="theme-color" content="#2c3e50">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+</head>
+<body>
+    <div id="lock-screen">
+        <div class="lock-box">
+            <h3>🔒 Secure Access</h3>
+            <p id="lock-msg">Enter PIN to continue</p>
+            <input type="password" id="pin-input" pattern="\d*" inputmode="numeric" placeholder="••••">
+            <button onclick="checkPIN()">Unlock</button>
+            <p class="pin-hint">First time? Set your PIN above.</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>💰 My Cashbook</h2>
+
+        <div class="business-header">
+            <input type="text" id="business-name" placeholder="Enter Your Business Name" oninput="saveBusinessName()">
+        </div>
+
+        <div class="account-nav">
+            <div id="book-tabs" class="tabs-container"></div>
+            <button onclick="createNewBook()" class="add-tab-btn">+</button>
+            <button onclick="deleteCurrentBook()" class="delete-book-btn">🗑️ Delete Book</button>
+        </div>
+        
+        <div class="balance-card">
+            <div class="total">Total Balance: <span id="balance">0</span></div>
+            <div class="stats">
+                <div class="in">Cash In: <span id="total-in">0</span></div>
+                <div class="out">Cash Out: <span id="total-out">0</span></div>
+            </div>
+            <button onclick="printBill()" style="background: #34495e; margin-top: 10px;">
+            🖨️ Print / Save as PDF
+            </button>
+        </div>
+
+        <div class="input-section">
+            <input type="date" id="date">
+            <input type="text" id="description" placeholder="Description (e.g. Salary)">
+            <input type="amount" id="amount" placeholder="Amount">
+            <select id="type">
+                <option value="in">Cash In (+)</option>
+                <option value="out">Cash Out (-)</option>
+            </select>
+            <button onclick="addEntry()" class="add-btn">Add Entry</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Note</th>
+                        <th>Amt</th>
+                        <th>X</th>
+                    </tr>
+                </thead>
+                <tbody id="entries"></tbody>
+            </table>
+        </div>
+    </div>
+    <div class="settings-section">
+        <h3>⚙️ Data Management</h3>
+        <div class="backup-btns">
+            <button onclick="exportBackup()" class="backup-btn">📤 Export Backup Code</button>
+            <button onclick="importBackup()" class="restore-btn">📥 Import Backup Code</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

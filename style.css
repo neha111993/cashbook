@@ -1,0 +1,303 @@
+body { 
+    font-family: sans-serif; 
+    background: #f4f7f6; 
+    margin: 0; 
+    padding: 15px; 
+}
+
+#lock-screen {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: #2c3e50; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 1000;
+}
+.lock-box {
+    background: white; 
+    padding: 30px; 
+    border-radius: 15px; 
+    text-align: center; 
+    width: 80%; 
+    max-width: 300px;
+}
+#pin-input {
+    width: 100%; 
+    font-size: 24px; 
+    text-align: center; 
+    align-items: center;
+    margin-left: -15px;
+    margin-bottom: 15px;
+    letter-spacing: 10px;
+}
+.pin-hint { 
+    font-size: 10px; 
+    color: #888; 
+    margin-top: 10px; 
+}
+
+.container { 
+    max-width: 500px; 
+    margin: auto; 
+}
+
+h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling for the Business Name input on screen */
+#business-name {
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.account-nav {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.tabs-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 5px;
+    flex: 1;
+    scrollbar-width: none; /* Hides scrollbar on Firefox */
+}
+
+.tabs-container::-webkit-scrollbar { 
+    display: none; 
+} /* Hides scrollbar on Chrome/Safari */
+
+.book-tab {
+    white-space: nowrap;
+    padding: 8px 16px;
+    background: #e0e0e0;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #555;
+    transition: 0.3s;
+}
+
+.book-tab.active {
+    background: #2c3e50;
+    color: white;
+}
+
+.add-tab-btn {
+    background: #27ae60;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+    color: white;
+    border: none;
+    font-size: 20px;
+    padding-top: 8px;
+}
+
+.balance-card { 
+    background: #2c3e50; 
+    color: white; 
+    padding: 20px; 
+    border-radius: 12px; 
+    text-align: center; 
+    margin-bottom: 20px; 
+}
+.total { 
+    font-size: 24px; 
+    font-weight: bold; 
+    margin-bottom: 20px; 
+}
+.stats { 
+    display: flex; 
+    justify-content: space-around; 
+    font-size: 20px; 
+    margin-bottom: 20px;
+}
+.in { 
+    color: #2ecc71; 
+} 
+.out { 
+    color: #e74c3c; 
+}
+
+.input-section { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px; 
+    background: white; 
+    padding: 15px; 
+    border-radius: 12px; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+input, select, button { 
+    padding: 12px; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    font-size: 16px; 
+}
+button { 
+    background: #3498db; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+}
+
+.add-btn { 
+    background: #27ae60; 
+}
+
+.del-btn {
+    background: #ffeded;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+/* Desktop hover effects */
+button:active { 
+    opacity: 0.8; 
+    transform: scale(0.98); 
+}
+
+.table-wrapper { 
+    margin-top: 15px; 
+    background: white; 
+    border-radius: 12px; 
+    max-height: 350px; 
+    overflow-y: auto; 
+}
+table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+th { 
+    background: #eee; 
+    position: sticky;
+    top: 0;
+    padding: 10px; 
+    font-size: 20px; 
+}
+td { 
+    padding-top: 10px;
+    padding-left: 40px; 
+    border-bottom: 1px solid #f0f0f0; 
+    font-size: 15px; 
+}
+
+.settings-section {
+    margin-top: 30px;
+    padding: 15px;
+    background: #67a36f;
+    border-top: 2px dashed #ddd;
+    text-align: center;
+}
+.backup-btns { 
+    display: flex; 
+    gap: 10px; 
+    margin-top: 10px; 
+}
+.backup-btn { 
+    background: #34495e; 
+    font-size: 12px; 
+    flex: 1; 
+}
+.restore-btn { 
+    background: #95a5a6; 
+    font-size: 12px; 
+    flex: 1; 
+}
+
+@media print {
+    /* 1. Hide the interactive UI elements */
+    .input-section, 
+    .account-nav, 
+    .add-tab-btn, 
+    .delete-book-btn, 
+    .settings-section, 
+    button, 
+    .action-buttons, 
+    .lock-box, 
+    #lock-screen {
+        display: none !important;
+    }
+
+    /* 2. Hide the 'X' column specifically */
+    /* This targets the 4th table header and 4th table cell */
+    th:nth-child(4), 
+    td:nth-child(4) {
+        display: none !important;
+    }
+
+    /* 3. Formal Bill Look */
+    body { 
+        background: white; 
+        padding: 0; 
+        margin: 0; 
+    }
+    .container { 
+        width: 100%; 
+        max-width: 100%; 
+        margin: 0; 
+        padding: 0; 
+        box-shadow: none; 
+    }
+    
+    .balance-card {
+        border: 2px solid #333;
+        color: black !important;
+        background: white !important;
+        margin-top: 20px;
+    }
+
+    #business-name {
+        border: none;
+        font-size: 24px;
+        margin-top: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    /* Assign specific widths to stop the "left shift" */
+    th:nth-child(1), 
+    td:nth-child(1) { 
+        width: 25%; 
+        text-align: left; 
+    } 
+    th:nth-child(2), 
+    td:nth-child(2) { 
+        width: 50%; 
+        text-align: left; 
+    }
+    th:nth-child(3), 
+    td:nth-child(3) { 
+        width: 25%; 
+        text-align: right; 
+    }
+    
+    th, td {
+        padding: 12px 8px;
+        border-bottom: 1px solid #333;
+    }
+}
