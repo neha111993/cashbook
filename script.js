@@ -49,6 +49,7 @@ function addEntry() {
     const desc = document.getElementById('description').value;
     const amount = parseFloat(document.getElementById('amount').value);
     const type = document.getElementById('type').value;
+    const category = "General";
 
     if (!desc || isNaN(amount)) return alert("Fill all details");
 
@@ -71,18 +72,18 @@ function deleteEntry(id) {
 function updateUI() {
     const entries = JSON.parse(localStorage.getItem(`data_${currentBook}`)) || [];
     const list = document.getElementById('entries');
-    const catList = document.getElementById('category-list');
     
+    // Safety check: if the table list isn't found, stop here
+    if (!list) return; 
+
     // Get filter and search values
     const filterMonth = document.getElementById('filter-month').value;
     const filterYear = document.getElementById('filter-year').value;
     const searchTerm = document.getElementById('search-input').value.toLowerCase();
     
     list.innerHTML = "";
-    catList.innerHTML = "";
     
     let totalIn = 0, totalOut = 0;
-    let catTotals = {};
 
     entries.forEach(e => {
         const entryDate = new Date(e.date);
@@ -96,17 +97,14 @@ function updateUI() {
         const searchMatch = entryNote.includes(searchTerm);
 
         if (monthMatch && yearMatch && searchMatch) {
-        const isIn = e.type === 'in';
-        isIn ? totalIn += e.amount : totalOut += e.amount;
+            const isIn = e.type === 'in';
+            isIn ? totalIn += e.amount : totalOut += e.amount;
 
-        if (!isIn) {
-                catTotals[e.category] = (catTotals[e.category] || 0) + e.amount;
-            }
-
-        list.innerHTML += `
-            <tr>
+            // Simple table row without the <small> category tag
+            list.innerHTML += `
+                <tr>
                     <td style="width:28%; padding-left:10px;">${e.date.split('-').reverse().join('/')}</td>
-                    <td style="width:40%;">${e.desc}<br><small style="color:#888">${e.category}</small></td>
+                    <td style="width:40%;">${e.desc}</td>
                     <td class="type-${e.type}" style="width:22%; text-align:right;">₹${e.amount.toLocaleString('en-IN')}</td>
                     <td onclick="deleteEntry(${e.id})" style="width:10%; color:red; cursor:pointer; text-align:center;">✖</td>
                 </tr>`;
@@ -116,15 +114,6 @@ function updateUI() {
     document.getElementById('balance').innerText = (totalIn - totalOut).toLocaleString('en-IN');
     document.getElementById('total-in').innerText = totalIn.toLocaleString('en-IN');
     document.getElementById('total-out').innerText = totalOut.toLocaleString('en-IN');
-
-    // Update Category Breakdown (Only shows for current filtered/searched list)
-    for (let cat in catTotals) {
-        catList.innerHTML += `
-            <div class="category-item">
-                <span>${cat}</span>
-                <span>₹${catTotals[cat].toLocaleString('en-IN')}</span>
-            </div>`;
-    }
 }
 
 // --- SECURITY LOGIC ---
@@ -148,7 +137,7 @@ function checkPIN() {
             unlockApp();
         } else {
             document.getElementById('lock-msg').innerText = "❌ Incorrect PIN";
-            document.getElementById('lock-input').value = "";
+            document.getElementById('pin-input').value = "";
         }
     }
 }
@@ -205,10 +194,6 @@ function importBackup() {
     }
 }
 
-// Initialize
-updateBookTabs();
-updateUI();
-
 function printBill() {
     // Add a temporary header for the printout
     const originalContent = document.body.innerHTML;
@@ -224,3 +209,20 @@ function printBill() {
     // Trigger the browser print dialog
     window.print();
 }
+
+function saveBusinessName() {
+    const name = document.getElementById('business-name').value;
+    localStorage.setItem('cashbook_biz_name', name);
+}
+
+function loadBusinessName() {
+    const savedName = localStorage.getItem('cashbook_biz_name');
+    if (savedName) {
+        document.getElementById('business-name').value = savedName;
+    }
+}
+
+// Initialize
+updateBookTabs();
+updateUI();
+loadBusinessName();
