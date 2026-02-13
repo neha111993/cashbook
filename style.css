@@ -351,6 +351,10 @@ th {
         margin-top: 20px;
     }
 
+    .controls-container{
+        align-items: center;
+        justify-content: center;
+    }
     /* Assign specific widths to stop the "left shift" */
     th:nth-child(1), 
     td:nth-child(1) { 
