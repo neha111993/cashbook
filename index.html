@@ -14,13 +14,13 @@
 </head>
 <body>
     <div id="lock-screen">
-        <div class="lock-box">
+        <form class="lock-box" onsubmit="event.preventDefault(); checkPIN();">
             <h3>🔒 Secure Access</h3>
             <p id="lock-msg">Enter PIN to continue</p>
             <input type="password" id="pin-input" pattern="\d*" inputmode="numeric" placeholder="••••">
-            <button onclick="checkPIN()">Unlock</button>
+            <button type="submit">Unlock</button>
             <p class="pin-hint">First time? Set your PIN above.</p>
-        </div>
+        </form>
     </div>
 
     <div class="container">
@@ -56,6 +56,30 @@
                 <option value="out">Cash Out (-)</option>
             </select>
             <button onclick="addEntry()" class="add-btn">Add Entry</button>
+        </div>
+
+        <div class="controls-container">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="🔍 Search notes..." oninput="updateUI()">
+            </div>
+            <div class="filter-section">
+                <select id="filter-month" onchange="updateUI()">
+                    <option value="all">All Months</option>
+                    <option value="0">January</option>
+                    <option value="1">February</option>
+                    <option value="2">March</option>
+                    <option value="3">April</option>
+                    <option value="4">May</option>
+                    <option value="5">June</option>
+                    <option value="6">July</option>
+                    <option value="7">August</option>
+                    <option value="8">September</option>
+                    <option value="9">October</option>
+                    <option value="10">November</option>
+                    <option value="11">December</option>
+                </select>
+                <input type="number" id="filter-year" value="2026" onchange="updateUI()">
+            </div>
         </div>
 
         <div class="table-wrapper">

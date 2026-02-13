@@ -76,7 +76,7 @@ h2{
     gap: 8px;
     padding-bottom: 5px;
     flex: 1;
-    scrollbar-width: none; /* Hides scrollbar on Firefox */
+    scrollbar-width: none; 
 }
 
 .tabs-container::-webkit-scrollbar { 
@@ -138,6 +138,19 @@ h2{
     color: #e74c3c; 
 }
 
+tr:active {
+    background-color: #f1f1f1; 
+}
+
+.type-in { 
+    color: #27ae60; 
+    font-weight: bold; 
+}
+.type-out { 
+    color: #e74c3c; 
+    font-weight: bold; 
+}
+
 .input-section { 
     display: flex; 
     flex-direction: column; 
@@ -177,29 +190,56 @@ button:active {
     transform: scale(0.98); 
 }
 
-.table-wrapper { 
-    margin-top: 15px; 
-    background: white; 
-    border-radius: 12px; 
-    max-height: 350px; 
-    overflow-y: auto; 
+/* Container for the table to allow scrolling if needed */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Prevents breaking on very small screens */
+    margin-top: 15px;
+    background: white;
+    border-radius: 12px;
 }
-table { 
+
+table {
     width: 100%; 
-    border-collapse: collapse; 
+    border-collapse: collapse;
+    table-layout: fixed;
 }
-th { 
-    background: #eee; 
-    position: sticky;
-    top: 0;
-    padding: 10px; 
-    font-size: 20px; 
+
+th, td {
+    padding: 12px 10px; 
+    text-align: left;
+    word-wrap: break-word; 
+    border-bottom: 1px solid #f0f0f0;
 }
-td { 
-    padding-top: 10px;
-    padding-left: 40px; 
-    border-bottom: 1px solid #f0f0f0; 
-    font-size: 15px; 
+
+/* Set specific widths to balance the look */
+th:nth-child(1), td:nth-child(1) { 
+    width: 28%; 
+    font-size: 12px; 
+}
+th:nth-child(2), 
+td:nth-child(2) { 
+    width: 40%; 
+}
+th:nth-child(3), 
+td:nth-child(3) { 
+    width: 22%; 
+    text-align: right; 
+}
+th:nth-child(4), 
+td:nth-child(4) { 
+    width: 10%; 
+    text-align: center; 
+}
+
+/* Make the headers look bold and centered/aligned correctly */
+th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
 }
 
 .settings-section {
@@ -223,6 +263,38 @@ td {
     background: #95a5a6; 
     font-size: 12px; 
     flex: 1; 
+}
+
+.controls-container {
+    background: #fff;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box; /* Ensures padding doesn't push it off screen */
+}
+
+.filter-section {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-section select, .filter-section input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #eee;
+    border-radius: 6px;
+    font-size: 13px;
+    background-color: #f9f9f9;
 }
 
 @media print {

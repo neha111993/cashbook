@@ -71,26 +71,60 @@ function deleteEntry(id) {
 function updateUI() {
     const entries = JSON.parse(localStorage.getItem(`data_${currentBook}`)) || [];
     const list = document.getElementById('entries');
+    const catList = document.getElementById('category-list');
+    
+    // Get filter and search values
+    const filterMonth = document.getElementById('filter-month').value;
+    const filterYear = document.getElementById('filter-year').value;
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    
     list.innerHTML = "";
+    catList.innerHTML = "";
     
     let totalIn = 0, totalOut = 0;
+    let catTotals = {};
 
     entries.forEach(e => {
+        const entryDate = new Date(e.date);
+        const entryMonth = entryDate.getMonth().toString();
+        const entryYear = entryDate.getFullYear().toString();
+        const entryNote = e.desc.toLowerCase();
+
+        // Check Month, Year, AND Search Term
+        const monthMatch = (filterMonth === "all" || entryMonth === filterMonth);
+        const yearMatch = (entryYear === filterYear);
+        const searchMatch = entryNote.includes(searchTerm);
+
+        if (monthMatch && yearMatch && searchMatch) {
         const isIn = e.type === 'in';
         isIn ? totalIn += e.amount : totalOut += e.amount;
 
+        if (!isIn) {
+                catTotals[e.category] = (catTotals[e.category] || 0) + e.amount;
+            }
+
         list.innerHTML += `
             <tr>
-                <td style="font-size: 11px;">${e.date.split('-').reverse().join('/')}</td>
-                <td>${e.desc}</td>
-                <td class="type-${e.type}">₹${e.amount.toLocaleString('en-IN')}</td>
-                <td onclick="deleteEntry(${e.id})" style="color:red; cursor:pointer;">✖</td>
-            </tr>`;
+                    <td style="width:28%; padding-left:10px;">${e.date.split('-').reverse().join('/')}</td>
+                    <td style="width:40%;">${e.desc}<br><small style="color:#888">${e.category}</small></td>
+                    <td class="type-${e.type}" style="width:22%; text-align:right;">₹${e.amount.toLocaleString('en-IN')}</td>
+                    <td onclick="deleteEntry(${e.id})" style="width:10%; color:red; cursor:pointer; text-align:center;">✖</td>
+                </tr>`;
+        }
     });
 
     document.getElementById('balance').innerText = (totalIn - totalOut).toLocaleString('en-IN');
     document.getElementById('total-in').innerText = totalIn.toLocaleString('en-IN');
     document.getElementById('total-out').innerText = totalOut.toLocaleString('en-IN');
+
+    // Update Category Breakdown (Only shows for current filtered/searched list)
+    for (let cat in catTotals) {
+        catList.innerHTML += `
+            <div class="category-item">
+                <span>${cat}</span>
+                <span>₹${catTotals[cat].toLocaleString('en-IN')}</span>
+            </div>`;
+    }
 }
 
 // --- SECURITY LOGIC ---
