@@ -28,12 +28,12 @@
 
         <div class="business-header">
             <input type="text" id="business-name" placeholder="Enter Your Business Name" oninput="saveBusinessName()">
+            <button onclick="deleteCurrentBook()" class="delete-book-btn">🗑️ Delete Book</button>
         </div>
 
         <div class="account-nav">
             <div id="book-tabs" class="tabs-container"></div>
             <button onclick="createNewBook()" class="add-tab-btn">+</button>
-            <button onclick="deleteCurrentBook()" class="delete-book-btn">🗑️ Delete Book</button>
         </div>
         
         <div class="balance-card">
@@ -98,16 +98,15 @@
         </div>
     </div>
 
-    <!-- <div id="category-summary" class="input-section" style="margin-top: 20px;">
-        <h3 style="margin: 0 0 10px 0; font-size: 16px;">📊 Category Breakdown</h3>
-        <div id="category-list"></div>
-    </div> -->
-
     <div class="settings-section">
         <h3>⚙️ Data Management</h3>
         <div class="backup-btns">
             <button onclick="exportBackup()" class="backup-btn">📤 Export Backup Code</button>
             <button onclick="importBackup()" class="restore-btn">📥 Import Backup Code</button>
+        </div>
+        <div class="share">
+            <button onclick="shareApp()" class="app-link">🔗 Share App Link</button>
+            <button onclick="resetPIN()" class="reset-pin">🔑 Change/Reset PIN</button>
         </div>
     </div>
     <script src="script.js"></script>

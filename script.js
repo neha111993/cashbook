@@ -147,7 +147,7 @@ function unlockApp() {
     document.getElementById('app-content').style.display = 'block';
 }
 
-// 1. EXPORT: Bundles everything into a text string
+// EXPORT: Bundles everything into a text string
 function exportBackup() {
     const allData = {
         bookList: JSON.parse(localStorage.getItem('my_book_list')),
@@ -168,7 +168,7 @@ function exportBackup() {
     });
 }
 
-// 2. IMPORT: Takes that text string and rebuilds the database
+// IMPORT: Takes that text string and rebuilds the database
 function importBackup() {
     const code = prompt("Paste your Backup Code here:");
     if (!code) return;
@@ -226,3 +226,43 @@ function loadBusinessName() {
 updateBookTabs();
 updateUI();
 loadBusinessName();
+
+
+function resetPIN() {
+    const currentSavedPIN = localStorage.getItem('app_pin');
+    const oldPIN = prompt("Enter your CURRENT PIN to verify:");
+
+    if (oldPIN === currentSavedPIN) {
+        const newPIN = prompt("Enter your NEW PIN (at least 4 digits):");
+        
+        if (newPIN && newPIN.length >= 4) {
+            localStorage.setItem('app_pin', newPIN);
+            alert("PIN updated successfully!");
+        } else {
+            alert("Failed. New PIN must be at least 4 digits.");
+        }
+    } else {
+        alert("Incorrect current PIN. Reset denied.");
+    }
+}
+
+async function shareApp() {
+    const shareData = {
+        title: 'My Mobile Cashbook',
+        text: 'Check out this easy-to-use Mobile Cashbook app for managing daily expenses!',
+        url: window.location.href 
+    };
+
+    try {
+        if (navigator.share) {
+            // This triggers the mobile native share menu (WhatsApp, etc.)
+            await navigator.share(shareData);
+        } else {
+            // Fallback for desktop browsers: Copy link to clipboard
+            await navigator.clipboard.writeText(window.location.href);
+            alert("App link copied to clipboard!");
+        }
+    } catch (err) {
+        console.log('Error sharing:', err);
+    }
+}
