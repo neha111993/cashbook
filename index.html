@@ -28,8 +28,10 @@
 
         <div class="business-header">
             <input type="text" id="business-name" placeholder="Enter Your Business Name" oninput="saveBusinessName()">
-            <button onclick="deleteCurrentBook()" class="delete-book-btn">🗑️ Delete Book</button>
-            <button onclick="renameCurrentBook()" class="edit-book-btn" style="background: #f39c12; color: white; border-radius: 8px; padding: 8px;">✏️ Rename</button>
+            <div class="changes">
+                <button onclick="deleteCurrentBook()" class="delete-book-btn">🗑️ Delete Book</button>
+                <button onclick="renameCurrentBook()" class="edit-book-btn">✏️ Rename</button>
+            </div>
         </div>
 
         <div class="account-nav">

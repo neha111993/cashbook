@@ -89,8 +89,12 @@ function renameCurrentBook() {
         bookList = bookList.map(name => name === oldName ? newName : name);
         localStorage.setItem('my_book_list', JSON.stringify(bookList));
 
+        currentBook = newName;
+        localStorage.setItem('last_active_book', newName);
+
         // 3. Switch to the new name
-        switchBook(newName);
+        updateBookTabs();
+        updateUI();
         alert("Book renamed successfully!");
     }
 }
@@ -103,7 +107,9 @@ function updateUI() {
 
     // --- ADD THIS SORTING LOGIC HERE ---
     // This sorts entries from newest date to oldest date
-    entries.sort((a, b) => new Date(b.date) - new Date(a.date));
+    entries.sort((a, b) => {
+        return new Date(b.date).getTime() - new Date(a.date).getTime();
+    });
 
     // Get filter and search values
     const filterMonth = document.getElementById('filter-month').value;

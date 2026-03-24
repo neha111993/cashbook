@@ -68,8 +68,12 @@ h2{
     align-items: center;
     gap: 10px;
     margin-bottom: 15px;
-    width: 100%; /* Ensure it takes full width */
-    overflow: hidden;
+    background: #fff; /* Added for contrast */
+    padding-top: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .tabs-container {
@@ -79,6 +83,8 @@ h2{
     padding-bottom: 15px;
     flex: 1;
     -webkit-overflow-scrolling: touch; 
+    white-space: nowrap;
+    padding-right: 10px;
 }
 .business-header{
     display: flex;
@@ -96,6 +102,12 @@ h2{
     border-radius: 10px;
 }
 
+.edit-book-btn{
+    background: #f39c12; 
+    color: white; 
+    border-radius: 8px;
+    gap: 5px; 
+}
 .book-tab {
     white-space: nowrap;
     padding: 8px 16px;
@@ -124,8 +136,12 @@ h2{
     font-size: 20px;
     padding-top: 7px;
     margin-top: -18px;
-    z-index: 1000;
+    transition: transform 0.2s;
 }
+.add-tab-btn:active {
+    transform: scale(0.9);
+}
+
 .balance-card { 
     background: #2c3e50; 
     color: white; 
