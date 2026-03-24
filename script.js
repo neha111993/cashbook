@@ -69,12 +69,41 @@ function deleteEntry(id) {
     updateUI();
 }
 
+function renameCurrentBook() {
+    const oldName = currentBook;
+    const newName = prompt("Enter new name for this book:", oldName);
+
+    if (newName && newName !== oldName) {
+        if (bookList.includes(newName)) {
+            return alert("A book with this name already exists!");
+        }
+
+        // 1. Move the actual entry data to the new key
+        const data = localStorage.getItem(`data_${oldName}`);
+        if (data) {
+            localStorage.setItem(`data_${newName}`, data);
+            localStorage.removeItem(`data_${oldName}`);
+        }
+
+        // 2. Update the book list array
+        bookList = bookList.map(name => name === oldName ? newName : name);
+        localStorage.setItem('my_book_list', JSON.stringify(bookList));
+
+        // 3. Switch to the new name
+        switchBook(newName);
+        alert("Book renamed successfully!");
+    }
+}
+
 function updateUI() {
-    const entries = JSON.parse(localStorage.getItem(`data_${currentBook}`)) || [];
+    let entries = JSON.parse(localStorage.getItem(`data_${currentBook}`)) || [];
     const list = document.getElementById('entries');
     
-    // Safety check: if the table list isn't found, stop here
     if (!list) return; 
+
+    // --- ADD THIS SORTING LOGIC HERE ---
+    // This sorts entries from newest date to oldest date
+    entries.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     // Get filter and search values
     const filterMonth = document.getElementById('filter-month').value;

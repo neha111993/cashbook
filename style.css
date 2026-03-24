@@ -124,6 +124,7 @@ h2{
     font-size: 20px;
     padding-top: 7px;
     margin-top: -18px;
+    z-index: 1000;
 }
 .balance-card { 
     background: #2c3e50; 
