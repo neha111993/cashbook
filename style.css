@@ -246,7 +246,7 @@ th, td {
 
 /* Set specific widths to balance the look */
 th:nth-child(1), td:nth-child(1) { 
-    width: 19%; 
+    width: 12%; 
     font-size: 12px; 
 }
 th:nth-child(2), 
